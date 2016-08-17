@@ -1,0 +1,7 @@
+/* Empty. Add your own CSS if you like */
+.esri-view, .map-container {
+    padding: 0;
+    margin: 0;
+    height: 50vh;
+    width: 100vw;
+    }

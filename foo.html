@@ -1,0 +1,41 @@
+<html ng-app="esri-map-example">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+        <title>Angular Esri Quick Start</title>
+
+        <link rel="stylesheet" href="//js.arcgis.com/4.0/esri/css/main.css">
+        <style type="text/css">
+            html, body, .esri-view {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body ng-controller="MapController as vm">
+        <esri-scene-view map="vm.map" view-options="{scale: 50000000, center: [-101.17, 21.78]}">
+        </esri-scene-view>
+
+        <!-- load Esri JSAPI -->
+        <script src="//js.arcgis.com/4.0/"></script>
+        <!-- load AngularJS -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+        <!-- load angular-esri-map -->
+        <script src="//npmcdn.com/angular-esri-map@2"></script>
+
+        <script type="text/javascript">
+            angular.module('esri-map-example', ['esri.map'])
+                .controller('MapController', function(esriLoader) {
+                    var self = this;
+                    esriLoader.require(['esri/Map'], function(Map) {
+                        self.map = new Map({
+                            basemap: 'streets'
+                        });
+                    });
+                });
+        </script>
+    </body>
+</html>

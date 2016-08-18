@@ -8,7 +8,11 @@ angular.module('starter.controllers', [])
 
       var self = this;
 
+      self.slider = {
+        zoomLevel: 16
+      };
       self.options = {
+        zoom: 16,
         extent: {
           xmin: -9177811,
           ymin: 4247000,
@@ -23,25 +27,50 @@ angular.module('starter.controllers', [])
         zoom: 11
       }
 
+      $scope.$watch(function () { return self.slider.zoomLevel },
+        function (nv, ov) {
+          console.log('slider zoomLevel: ', nv, ov)
+          self.options.zoom = angular.copy(parseInt(nv));
+        }, true);
+
       $ionicPlatform.ready(function () {
 
         esriLoader.require([
           'esri/Map',
-          'esri/layers/FeatureLayer'
-        ], function (Map, FeatureLayer) {
+          'esri/views/MapView',
+          'esri/layers/FeatureLayer',
+          'esri/widgets/Zoom'
+        ], function (Map, MapView, FeatureLayer, Zoom) {
           // create the map
           self.map = new Map({
-            basemap: 'hybrid'
+            basemap: 'hybrid',
+            // slider: false                // doesnt remove the slider, as it should. 
           });
-          // and add a feature layer
+
+          // create a feature layer
           self.featureLayer = new FeatureLayer({
             url: '//services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
           });
 
-          // console.log('What does the feature layer contain? ', self.featureLayer);
-          // window.featureLayer = self.featureLayer;
+          // create MapView because according to: https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Zoom.html 
+          // I should only bind widgets i.e. zoom instances, to MapView instances, not Maps. 
+          var view = new MapView({
+            map: self.map
+          });
 
+          // create Zoom widget instance.
+          self.zoom = new Zoom({
+              view: view,
+              visible: false
+          });
+          
+          console.log('Map is: ', self.map);
+          console.log('MapView is: ', view);
+          console.log('Zoom is: ', self.zoom)
+
+          // add feature layer
           self.map.add(self.featureLayer);
+
           self.hasFeatureLayer = true;
         });
 
@@ -56,6 +85,9 @@ angular.module('starter.controllers', [])
             self.map.add(self.featureLayer);
           }
         }
+
+
+
 
         // esriLoader.require([
         //   'esri/Map',

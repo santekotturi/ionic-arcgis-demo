@@ -3,13 +3,19 @@
     <div class="map-container">
       <!--<esri-scene-view map="vm.map" view-options="vm.options">
       </esri-scene-view>-->
-      <esri-map-view map="vm.map" view-options="vm.options"></esri-map-view>
+      <esri-map-view id="trees" map="vm.map" view-options="vm.options"></esri-map-view>
     </div>
 
     <div style="height:10px"></div>
 
+    <ion-item class="item-divider">Map Controls </ion-item>
     <ion-toggle ng-model="vm.hasFeatureLayer" ng-change="vm.toggleFeatureLayer()">Show Tree Data</ion-toggle>
-
+    <div class="item range">
+      <i class="icon ion-android-map"></i>
+      <input type="range" name="zoom" ng-model="vm.slider.zoomLevel" min="1" max="26">
+      <i class="icon ion-android-pin"></i>
+    </div>
+    
     <div style="height:10px"></div>
 
     <!--<div class="map-container">

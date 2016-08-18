@@ -3,10 +3,18 @@
     <div class="map-container">
       <!--<esri-scene-view map="vm.map" view-options="vm.options">
       </esri-scene-view>-->
-      <esri-map-view map="vm.map" 
-    view-options="vm.options">
-</esri-map-view>
+      <esri-map-view map="vm.map" view-options="vm.options"></esri-map-view>
     </div>
+
+    <div style="height:10px"></div>
+
+    <ion-toggle ng-model="vm.hasFeatureLayer" ng-change="vm.toggleFeatureLayer()">Show Tree Data</ion-toggle>
+
+    <div style="height:10px"></div>
+
+    <!--<div class="map-container">
+      <esri-map-view map="vm.map2" view-options="vm.options2"></esri-map-view>
+    </div>-->
 
   </ion-content>
 </ion-view>
